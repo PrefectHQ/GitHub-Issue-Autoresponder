@@ -1,8 +1,9 @@
 import os
 
 import marvin
+import requests
 from marvin import ai_fn
-from prefect import flow
+from prefect import flow, task
 
 
 @ai_fn
@@ -11,11 +12,32 @@ def summarize_github_issue(issue_text: str) -> str:
     Given the github issue text, summarize it
     """
 
-@flow
-def summarize_issue(issue_number: int, issue_text: str, user_login_name: str) -> str:
-    key = os.environ["OPENAI_API_KEY"]
-    marvin.settings.openai.api_key = key
-    return summarize_github_issue(issue_text)
+@ai_fn
+@task
+def marvin_response(issue_text: str) -> str:
+    """
+    Given the github issue text, provide a friendly suggestion for a work around in Prefect 2.0. 
+    If a work around does not exist, return a message saying that the team at Prefect is looking into it. 
+    """
 
-if __name__ == "__main__":
-    summarize_issue(123455, "I'm upset because I called my flow function and it returned an error that said 'No flow function found'", "jlowin")
+
+@task
+def issue_comment(owner: str, repo: str, issue_number: str, message: str):
+    """Issue comment event."""
+    github_api_key = os.environ["GITHUB_API_KEY"]
+    token = f"Authorization: Bearer {github_api_key}"
+    requests.post(f"/repos/{owner}/{repo}/issues/{issue_number}/comments",body=message, headers=token)
+
+@flow
+def suggested_fix_from_marvin(issue_number: int, issue_text: str, user_login_name: str) -> None:
+    open_api_key = os.environ["OPENAI_API_KEY"]
+    marvin.settings.openai.api_key = open_api_key
+    
+    summary = summarize_github_issue(issue_text)
+    response = marvin_response(summary)
+
+    if response:
+        issue_comment("PrefectHQ", "Project-2-TPV-GTM-Relay", issue_number, response)
+    
+    return None
+
