@@ -173,7 +173,7 @@ torch==2.0.0
 torchvision==0.15.1
 tqdm==4.65.0
 trafilatura==1.4.1
-transformers==4.27.4
+transformers==4.30.0
 typed-ast==1.5.4
 typer==0.9.0
 typing-inspect==0.8.0
