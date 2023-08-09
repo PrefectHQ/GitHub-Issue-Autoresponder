@@ -26,7 +26,10 @@ def marvin_response(issue_text: str) -> str:
 def issue_comment(owner: str, repo: str, issue_number: str, message: dict):
     """Issue comment event."""
     github_api_key = os.environ["GITHUB_API_KEY"]
-    token = f"Authorization: Bearer {github_api_key}"
+    token = f"Bearer {github_api_key}"
+    header = {
+        "Authorization": token
+    }
     requests.post(f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/comments",json=message, headers=token)
 
 @flow
