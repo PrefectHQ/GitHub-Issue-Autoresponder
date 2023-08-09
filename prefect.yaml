@@ -7,29 +7,28 @@ name: Project-2-TPV-GTM-Relay
 prefect-version: 2.11.3
 
 # build section allows you to manage and build docker images
-build: null
+build:
 
 # push section allows you to manage if and how this project is uploaded to remote locations
-push: null
+push:
 
 # pull section allows you to provide instructions for cloning this project in remote locations
 pull:
 - prefect.deployments.steps.git_clone:
     repository: https://github.com/PrefectHQ/Project-2-TPV-GTM-Relay.git
     branch: main
-    access_token: null
+    access_token:
 
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
-- name: null
-  version: null
+- name: project2_github_response
+  version:
   tags: []
-  description: null
-  schedule: {}
-  flow_name: null
-  entrypoint: null
+  description:
+  entrypoint: ./flow.py:suggested_fix_from_marvin
   parameters: {}
   work_pool:
-    name: null
-    work_queue_name: null
+    name: project2
+    work_queue_name:
     job_variables: {}
+  schedule:
