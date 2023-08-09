@@ -1,10 +1,6 @@
-import os
 
-import marvin
 from marvin import ai_fn
 from prefect import flow, task
-
-marvin.settings.openai.api_key = "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"
 
 @ai_fn
 @task
