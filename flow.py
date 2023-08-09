@@ -26,7 +26,7 @@ def issue_comment(owner: str, repo: str, issue_number: str, message: str):
     """Issue comment event."""
     github_api_key = os.environ["GITHUB_API_KEY"]
     token = f"Authorization: Bearer {github_api_key}"
-    requests.post(f"/repos/{owner}/{repo}/issues/{issue_number}/comments",data=message, headers=token)
+    requests.post(f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/comments",data=message, headers=token)
 
 @flow
 def suggested_fix_from_marvin(issue_number: int, issue_text: str, user_login_name: str) -> None:
