@@ -39,6 +39,9 @@ def suggested_fix_from_marvin(issue_number: int, issue_text: str, user_login_nam
     logger = get_run_logger()
     logger.info(response)
     if response:
-        issue_comment("PrefectHQ", "Project-2-TPV-GTM-Relay", issue_number, response)
+        message = {
+            "body": response
+        }
+        issue_comment("PrefectHQ", "Project-2-TPV-GTM-Relay", issue_number, message)
     
     return None
