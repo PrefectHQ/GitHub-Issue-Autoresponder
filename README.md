@@ -6,3 +6,4 @@ No code - just configuring the [webhook](https://app.prefect.cloud/account/9b649
 Save your code to this repo for use by the next team. 
 
 
+In order for the flow to run you need to set the environment variable `OPENAI_API_KEY`. Key in notion.
