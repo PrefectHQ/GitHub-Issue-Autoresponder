@@ -30,7 +30,7 @@ def issue_comment(owner: str, repo: str, issue_number: str, message: dict):
     header = {
         "Authorization": token
     }
-    requests.post(f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/comments",json=message, headers=token)
+    requests.post(f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/comments",json=message, headers=header)
 
 @flow
 def suggested_fix_from_marvin(issue_number: int, issue_text: str, user_login_name: str) -> None:
