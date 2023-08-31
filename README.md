@@ -1,4 +1,4 @@
-# GitHub Issue Auto-response with Prefect and Marvin
+# GitHub Issue Autoresponder with Prefect and Marvin
 
 Code to accompany the blog post.
 
